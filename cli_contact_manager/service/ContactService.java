@@ -40,7 +40,7 @@ public class ContactService {
         }
     }
 
-    //  Add Contact 
+    //  add contact 
     public void addContact(Contact c) {
         String sql = "INSERT INTO contacts(name, phone, blood_group, email, place) VALUES (?, ?, ?, ?, ?)";
 
@@ -62,7 +62,7 @@ public class ContactService {
         }
     }
 
-    // View  contacts
+    //view contact
     public void viewAllContacts() {
         if (contactCount == 0) {
             System.out.println("⚠️ No contacts found.");
@@ -74,7 +74,7 @@ public class ContactService {
         }
     }
 
-    //  Search Menu
+    //  search menu
     public void searchMenu() {
         System.out.println("\n=== Search Menu ===");
         System.out.println("1. By Name");
@@ -87,40 +87,56 @@ public class ContactService {
         sc.nextLine();
 
         switch (option) {
-            case 1 -> {
+            case 1 :{
                 System.out.print("Enter name: ");
                 String name = sc.nextLine().toLowerCase();
                 searchByField("name", name);
+                break;
             }
-            case 2 -> {
+            case 2 : {
                 System.out.print("Enter phone: ");
                 String phone = sc.nextLine();
                 searchByField("phone", phone);
+                break;
             }
-            case 3 -> {
+            case 3 : {
                 System.out.print("Enter blood group: ");
                 String bg = sc.nextLine().toUpperCase();
                 searchByField("bloodGroup", bg);
+                break;
             }
-            case 4 -> {
+            case 4 : {
                 System.out.print("Enter place: ");
                 String place = sc.nextLine().toLowerCase();
-                searchByField("place", place);
+                for (int i = 0; i < contactCount; i++) {
+                	searchByField("place", place);
+                    break;
+                }
+                
             }
-            case 5 -> {
+            case 5: {
                 System.out.print("Enter first letter: ");
                 String ch = sc.nextLine().toLowerCase();
+                boolean found = false;
                 for (int i = 0; i < contactCount; i++) {
                     if (contacts[i].getName().toLowerCase().startsWith(ch)) {
                         display(contacts[i]);
+                        found = true;
                     }
                 }
+                if (!found) {
+                    System.out.println("⚠️ No match found.");
+                }
+                break;
             }
-            default -> System.out.println("❌ Invalid option.");
+
+            default :{
+            	System.out.println("❌ Invalid option.");
+            }
         }
     }
 
-    // Search by specific field
+    // search by field
     private void searchByField(String field, String value) {
         boolean found = false;
         for (int i = 0; i < contactCount; i++) {
@@ -155,7 +171,7 @@ public class ContactService {
         if (!found) System.out.println("⚠️ No match found.");
     }
 
-    //  Update 
+    //  update 
     public void updateContact() {
         System.out.print("Enter ID to update: ");
         int id = sc.nextInt();
@@ -183,7 +199,7 @@ public class ContactService {
                 System.out.print("New Place: ");
                 c.setPlace(sc.nextLine());
 
-                // Update in DB
+                // update in DB
                 String sql = "UPDATE contacts SET name=?, phone=?, blood_group=?, email=?, place=? WHERE id=?";
                 try (Connection conn = ContactDatabase.connect();
                      PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -234,7 +250,7 @@ public class ContactService {
                         stmt.setInt(1, idToDelete);
                         stmt.executeUpdate();
                         System.out.println("✅ Contact deleted successfully.");
-                        loadContactsFromDatabase(); // refresh array
+                        loadContactsFromDatabase(); 
 
                     } catch (SQLException e) {
                         System.out.println("❌ Error deleting contact: " + e.getMessage());

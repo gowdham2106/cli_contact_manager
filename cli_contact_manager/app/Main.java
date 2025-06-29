@@ -49,23 +49,42 @@ public class Main {
                     Contact contact = new Contact(name, phone, bloodGroup, email, place);
 
                     service.addContact(contact);
+                    
                 }
 
-                case 2 -> service.viewAllContacts();
+                case 2 ->
+                	{
+                		service.viewAllContacts();
+                		 
+                	}
 
-                case 3 -> service.searchMenu();
+                case 3 ->
+                	{
+                		service.searchMenu();
+                		
+                	}
 
-                case 4 -> service.updateContact();
+                case 4 ->{
+                	service.updateContact();
+                	
+                }
                 
-                case 5 -> service.deleteContact();
+                case 5 ->{
+                	service.deleteContact();
+                	 
+                }
                 
-                case 0 -> System.out.println("👋 Thank you for using Contact Manager. Goodbye!");
+                case 0 ->{
+                	System.out.println("👋 Thank you for using Contact Manager. Goodbye!");
+                	 
+                }
 
-                default -> System.out.println("❌ Invalid option. Try again.");
+                default ->{
+                	System.out.println("❌ Invalid option. Try again.");
+                }
             }
 
         } while (choice != 0);
-
         
     }
 }
