@@ -1,6 +1,6 @@
 package cli_contact_manager.models;
-
 public class Contact {
+	
 	private int id;
     private String name;
     private String phone;

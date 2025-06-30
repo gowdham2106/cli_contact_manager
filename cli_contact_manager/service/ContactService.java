@@ -42,7 +42,7 @@ public class ContactService {
 
     //  add contact 
     public void addContact(Contact c) {
-        String sql = "INSERT INTO contacts(name, phone, blood_group, email, place) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO contacts(name, phone,blood_group, email, place) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = ContactDatabase.connect();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -87,34 +87,33 @@ public class ContactService {
         sc.nextLine();
 
         switch (option) {
-            case 1 :{
+            case 1 ->{
                 System.out.print("Enter name: ");
                 String name = sc.nextLine().toLowerCase();
                 searchByField("name", name);
-                break;
             }
-            case 2 : {
+            case 2 -> {
                 System.out.print("Enter phone: ");
                 String phone = sc.nextLine();
                 searchByField("phone", phone);
-                break;
+               
             }
-            case 3 : {
+            case 3 -> {
                 System.out.print("Enter blood group: ");
                 String bg = sc.nextLine().toUpperCase();
                 searchByField("bloodGroup", bg);
-                break;
+               
             }
-            case 4 : {
+            case 4 -> {
                 System.out.print("Enter place: ");
                 String place = sc.nextLine().toLowerCase();
                 for (int i = 0; i < contactCount; i++) {
                 	searchByField("place", place);
-                    break;
+                    
                 }
                 
             }
-            case 5: {
+            case 5-> {
                 System.out.print("Enter first letter: ");
                 String ch = sc.nextLine().toLowerCase();
                 boolean found = false;
@@ -130,7 +129,7 @@ public class ContactService {
                 break;
             }
 
-            default :{
+            default ->{
             	System.out.println("❌ Invalid option.");
             }
         }
